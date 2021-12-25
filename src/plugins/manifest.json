@@ -1,0 +1,45 @@
+{
+  "manifest_version": 2,
+  "name": "ads创意审核插件",
+  "version": "6.0",
+  "description": "商品组专用插件，支持保存工作表，支持自动关闭工作产生的标签页,支持高亮关键字。",
+  "browser_action": {
+    "default_title": "给王曼的写的",
+    "default_icon": "assets/64.png",
+    "default_popup": "popup.html"
+  },
+  "options_page": "option/options.html",
+
+  "options_ui": {
+    "page": "option/options.html",
+    "chrome_style": true
+  },
+  "permissions": [
+    "http://jztaudit.jd.com/audit/*",
+    "https://*.google.com/",
+    "activeTab",
+    "tabs",
+    "storage",
+    "webRequest",
+    "declarativeContent",
+    "contextMenus",
+    "webRequestBlocking"
+  ],
+  "background": {
+    "scripts": ["js/chunk-vendors.js", "js/background.js"]
+  },
+  "icons": {
+    "16": "assets/64.png",
+    "48": "assets/64.png",
+    "128": "assets/64.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [ "<all_urls>" ],
+      "css": ["css/content.css"],
+      "js": ["js/jquery.js","js/jquery.highlight.js","js/chunk-vendors.js","js/content.js","js/hightLight.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

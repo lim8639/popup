@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>PopUp</title>
+    <style>
+        /*滚动条整体样式*/
+
+        ::-webkit-scrollbar {
+            width: 5px;
+            /*竖向滚动条的宽度*/
+            height: 5px;
+            /*横向滚动条的高度*/
+        }
+
+        ::-webkit-scrollbar-thumb {
+            /*滚动条里面的小方块*/
+            background: #c4c4c4;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            /*滚动条轨道的样式*/
+            background: #ececec;
+            border-radius: 5px;
+        }
+
+        body {
+            background-color: #fbfbff;
+        }
+        .body{
+            width: 400px;
+            height: 400px;
+        }
+        .happiness{
+            width: 300px;
+            height: 40px;
+            position: relative;
+        }
+        .happiness input{
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 200px;
+            height: 30px;
+        }
+        .happiness span{
+            display: inline-block;
+            line-height: 30px;
+            text-align: center;
+            background-color: #d9d9d9;
+            border: none;
+            color: #5D576B;
+            font-size: 13px;
+            font-weight: 600;
+            position: absolute;
+            top: 0;
+            left: 200px;
+            width: 74px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="body">
+        <h2 class=''>AutoMaticHappiness:</h2>
+        <div class='happiness'>
+            <input type="text" id="dateTime">
+            <span id="btn5" >点击启动</span>
+        </div>
+        <h2 class=''>closetabs:</h2>
+    <textarea style="width: 385px;height: 100px;" rows="5" cols="70" id="closeTabs" type="text"></textarea>
+    <div style="width: 250px;height: 50px;">
+        <p style="font-size: 12px; color: rgb(80, 72, 77);border-top: lightblue 1px solid;">优化工作，增强幸福感 <span
+         style="color: grey;font-size: 10px;">@linpengfei7</span></p>
+    </div>
+</div>
+    <script src="../js/jquery.js"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="options.js"></script>
+</body>
+
+</html>
