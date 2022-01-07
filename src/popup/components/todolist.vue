@@ -5,12 +5,11 @@
           name="animate__animated animate__bounce"
           enter-active-class="animate__fadeInBottomRight"
           leave-active-class="animate__backOutRight"
-
           leave-class="animate__swing"
           class="hello"
           :duration="{ enter: 750, leave: 300 }">
                         appear>
-      <li @click='copy(item.todoItem)'  :key='item.uuid' v-for='(item,index) in list' v-if='item.done'>
+      <li @dblclick='copy(item.todoItem)'  :key='item.uuid' v-for='(item,index) in TodoList' v-if='item.done'>
                <span :class="item.done?'text text-done':'text'">
                     <span class='content'>
                         <input @click='changeStatus(index)' :checked='item.done' class='done tui-checkbox'
@@ -22,12 +21,11 @@
         </button>
         <button class='pop-btn' @click='removeItem(index)'><img src="@/assets/rabbish.svg" class='btn-img'/></button>
 
-        <button :class="getCurrentStatus(item.time,myDate,item.done).STATUS +' show-info'">
-          {{ getCurrentStatus(item.time, myDate, item.done).INFO }}
+        <button class="btn show-info">
+          2022
         </button>
-
       </li>
-       <li @click='copy(item.todoItem)'  :key='item.uuid' v-for='(item,index) in list' v-if='!item.done'>
+       <li @dblclick='copy(item.todoItem)'  :key='item.uuid' v-for='(item,index) in TodoList' v-if='!item.done'>
                <span class='text'>
                     <span class='content'>
                         <input @click='changeStatus(index)' :checked='item.done' class='done tui-checkbox'
@@ -38,8 +36,8 @@
         <button class='btn-change pop-btn' @click='changeList(index)'><img src="@/assets/ip.svg" class='btn-img'/>
         </button>
         <button class=' pop-btn' @click='removeItem(index)'><img src="@/assets/rabbish.svg" class='btn-img'/></button>
-        <button :class="getCurrentStatus(item.time,myDate,item.done).STATUS +' show-info'">
-          {{ getCurrentStatus(item.time, myDate, item.done).INFO }}
+        <button class="show-info">
+          2022
         </button>
       </li>
       </transition-group>
@@ -51,125 +49,46 @@ import 'animate.css'
 export default {
   name: 'toDoList',
   data() {
-
-    let myDate = new Date();
     return {
-      list: [],
-      myDate: myDate
+      TodoList:[],
     }
   },
   mounted() {
     chrome.storage.sync.get("TodoList", (item) => {
-      this.$data.list = item.TodoList;
+      this.$data.TodoList = item.TodoList;
     })
-    this.timer = setInterval(this.reflashDate, 1000);
   },
   beforeDestroy() {
-    clearInterval(this.timer);
+
   },
   methods: {
-    changeStyle() {
-
-    },
     changeStatus(index) {
-      this.$data.list[index].done = !this.$data.list[index].done;
-      chrome.storage.sync.set({'TodoList': this.$data.list});
+      this.$data.TodoList[index].done = !this.$data.TodoList[index].done;
+      chrome.storage.sync.set({'TodoList': this.$data.TodoList});
     },
     changeList(index) {
       if (index != 0) {
-        let arr = this.$data.list;
+        let arr = this.$data.TodoList;
         arr[index] = arr.splice(index - 1, 1, arr[index])[0];
+        chrome.storage.sync.set({'TodoList': this.$data.TodoList});
       }
     },
-    reflashDate() {
-      this.$data.myDate = new Date();
-    },
-
     /**
-     *  获取状态
-     * @returns {string}
-     * @param Minutes
-     * @param s
+     *
+     * @param id
      */
-    transTime(Minutes, s) {
-      let h = parseInt(Minutes / 60);
-      let m = Minutes % 60;
-      return `${h}:${m}:${60-s}`;
-    },
-    getCurrentStatus(time, myDate, done) {
-      let CurrentStatus = {
-        STATUS: '',
-        INFO: '等待'
-      }
-      if (done) {
-        CurrentStatus.INFO = '完成';
-        return CurrentStatus;
-      }
-      if (time == null) {
-        return CurrentStatus;
-      } else {
-        let nodeHours = time.hh * 1;
-        let nodeMinutes = time.mm * 1;
-        let NowHours = myDate.getHours();
-        let NowMinutes = myDate.getMinutes();
-        // 计算时差
-        if (nodeHours > 8 && nodeHours < 21) {
-
-          // 计算正常时段的倒计时
-          var min = nodeHours * 60 + nodeMinutes + 180 - (myDate.getHours() * 60 + myDate.getMinutes())
-          let current = this.transTime(min, myDate.getSeconds());
-          if (min > 180) {
-            CurrentStatus.INFO = '等待'
-          } else if (min < 180 && min > 30) {
-            CurrentStatus.INFO = current;
-            CurrentStatus.STATUS = 'doing-up'
-          } else if (min < 0) {
-            CurrentStatus.INFO = '超时!!'
-            CurrentStatus.STATUS = 'error-up'
-          } else {
-            CurrentStatus.INFO = current;
-            CurrentStatus.STATUS = 'warn-up'
-          }
-          return CurrentStatus;
-        } else {
-          // 9点前的素材 12点清空
-          var min2 = 12 * 60 - (myDate.getHours() * 60 + myDate.getMinutes());
-          if (min2 < 0){
-            CurrentStatus.INFO = '超时!!';
-            CurrentStatus.STATUS = 'error-up'
-
-          }else if (min2 < 30){
-            CurrentStatus.INFO = this.transTime(min2,myDate.getSeconds());
-            CurrentStatus.STATUS = 'error-up'
-          }else {
-            CurrentStatus.INFO = this.transTime(min2,myDate.getSeconds());
-            CurrentStatus.STATUS = 'doing-up'
-          }
-          return  CurrentStatus;
-        }
-      }
-    },
-    Countdown() {
-      // new Date().getSeconds();
-      return this.$data.myDate.getSeconds();
-    },
     removeItem(id) {
       let newArray = [];
-      let array = this.$data.list;
+      let array = this.$data.TodoList;
       let j = 0;
-      for(let i = 0;i<this.$data.list.length;i++){
+      for(let i = 0;i<this.$data.TodoList.length;i++){
         if (id != i){
             newArray[j] = array[i];
             j++;
         }
       }
-      this.$data.list = newArray;
-      // let array = this.$data.list;
-      // this.$data.list =  array.filter((item)=>{
-      //   return  item.uuid != id;
-      // })
-
-      chrome.storage.sync.set({'TodoList': this.$data.list})
+      this.$data.TodoList = newArray;
+      chrome.storage.sync.set({'TodoList':this.$data.TodoList})
     },
     copy(value) {
       let transfer = document.createElement('input');
@@ -181,13 +100,110 @@ export default {
         document.execCommand('copy');
       }
       transfer.blur();
-      //console.log('复制成功');
       document.body.removeChild(transfer);
     },
   },
 }
 </script>
 <style scoped>
+.data-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 10px;
+  height: 325px;
+}
+
+#body_list {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 275px;
+}
+.show-info{
+  position: absolute;
+  top: 0;
+  right: 0px;
+  margin-top: 4px;
+  height: 22px;
+  /*border-radius: 15px;*/
+  width: 52px;
+  text-align: center;
+  color: #8a8a8d;
+  background-color: #f2f2f7;
+  border:  0;
+  border-radius: 10px;
+}
+
+.btn-change{
+  right: 26px!important;
+}
+
+
+.text {
+  width: 240px;
+  display: inline-block;
+  font-family: "Microsoft YaHei", Consolas;
+  letter-spacing: 0.01em;
+  line-height: 30px;
+  height: 30px!important;
+  color: #0D1F2D;
+  font-weight: 530;
+  overflow: hidden;
+}
+.text-done{
+  color: #8a8a8d;
+}
+
+.content{
+  padding-right: 6px;
+}
+.data-list li:hover  .pop-btn {
+  display: inline-block;
+  color: #FCFCFC;
+  min-height: 30px;
+}
+
+.data-list li:hover span {
+  color: #FCFCFC;
+}
+
+.data-list li {
+  margin-left: -2px;
+  padding-left: 2px;
+  line-height: 30px!important;
+  position: relative;
+  font-size: 16px;
+  font-weight: 500;
+  height: 30px;
+  list-style: none;
+  margin-bottom: 1px;
+  margin-top: 1px;
+  background-color: #ffffff;
+}
+
+.data-list li:hover {
+  border-radius: 10px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  background-color: #70706f;
+  height: 60px!important;
+  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 28%);
+}
+.data-list li:hover .show-info{
+  display: none;
+}
+.data-list li  .pop-btn {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  height: 30px;
+  /*border-radius: 15px;*/
+  width: 26px;
+  text-align: center;
+  display: none;
+  background-color: #70706f;
+  border: #70706f 1px solid;
+  border-radius: 10px;
+}
 .hello{
   animation: ease 0.6s;
 }

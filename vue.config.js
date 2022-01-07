@@ -18,18 +18,6 @@ const copyFiles = [
     {
         from: path.resolve("src/plugins/jquery.js"),
         to: path.resolve("dist/js")
-    },
-    {
-        from: path.resolve("src/option"),
-        to: path.resolve("dist/option")
-    },
-    {
-        from: path.resolve("src/plugins/hightLight.js"),
-        to: path.resolve("dist/js")
-    },
-    {
-        from: path.resolve("src/plugins/vendors.js"),
-        to: path.resolve("dist/js")
     }
 ];
 
@@ -39,8 +27,7 @@ const plugins = [
         patterns: copyFiles
     }),
     // 插件
-    new webpack.BannerPlugin('@linpengfei7谨以此插件送给最好的@wangman5')
-
+    new webpack.BannerPlugin("沫沫的时光机by@lim8639")
 ];
 
 // 页面文件

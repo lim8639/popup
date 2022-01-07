@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>
-      ads 创意审核插件<router-link to="/declare"><small>©linpengfei7 </small></router-link>
+      WorkInDay<small>©linpengfei7 </small>
     </h2>
     <router-view></router-view>
   </div>
@@ -22,28 +22,23 @@ export default {
 }
 </script>
 <style>
-
 /*滚动条整体样式*/
-
 ::-webkit-scrollbar {
   width: 5px;
   /*竖向滚动条的宽度*/
   height: 5px;
   /*横向滚动条的高度*/
 }
-
 ::-webkit-scrollbar-thumb {
   /*滚动条里面的小方块*/
   background: #c4c4c4;
   border-radius: 5px;
 }
-
 ::-webkit-scrollbar-track {
   /*滚动条轨道的样式*/
   background: #ececec;
   border-radius: 5px;
 }
-
 button {
   height: 30px;
   width: 30%;
@@ -108,10 +103,8 @@ html,body{
   background-color: #fbfbff;
 }
 .body {
-
-  height: 310px;
-  width: 275px;
-  /* background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), url('../images/64.png') no-repeat 0% 20%/ cover; */
+  height: 370px;
+  width: 300px;
 }
 ul,
 li {
@@ -138,6 +131,7 @@ li {
 }
 
 #data {
+
   color: #000000;
   outline: none;
   padding-left: 10px;
@@ -145,124 +139,13 @@ li {
   box-shadow: 0 1px 6px 0 rgb(32 33 36 / 4%);
   margin-left: 10px;
   height: 20px;
-  width: 193px;
+  width: 210px;
   line-height: 20px;
   border: 1px solid #e3e3e8 !important;
   border-radius: 15px 0 0 15px;
 }
 
-.data-list {
-  overflow-x: hidden;
-  padding: 10px;
-}
 
-#body_list {
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: 275px;
-  width: 279px;
-}
-.show-info{
-  position: absolute;
-  top: 0;
-  right: 0px;
-  margin-top: 4px;
-  height: 22px;
-  /*border-radius: 15px;*/
-  width: 52px;
-  text-align: center;
-  color: #8a8a8d;
-  background-color: #f2f2f7;
-  border:  0;
-  border-radius: 10px;
-}
-.error-up{
-  background-color: #eb4d3d;
-  color: #ffffff;
-}
-.doing-up{
-  background-color: #2aa81a;
-  color: #ffffff;
-}
-.warn-up{
-  background-color: #eec44a;
-  color: #ffffff;
-}
-.wait-up{
-  background-color: #f2f2f7!important;
-  color: #8a8a8d!important;
-  border: 1px solid #8a8a8d!important;
-}
-.btn-change{
-  right: 26px!important;
-}
-
-
-.text {
-  width: 207px;
-  display: inline-block;
-  font-family: "Microsoft YaHei", Consolas;
-  letter-spacing: 0.01em;
-  line-height: 30px;
-  height: 30px!important;
-  color: #0D1F2D;
-  font-weight: 530;
-  overflow: hidden;
-}
-.text-done{
-  color: #8a8a8d;
-}
-
-.content{
-  padding-right: 6px;
-}
-.data-list li:hover  .pop-btn {
-  display: inline-block;
-  color: #FCFCFC;
-  min-height: 30px;
-}
-
-.data-list li:hover span {
-  color: #FCFCFC;
-}
-
-.data-list li {
-  margin-left: -2px;
-  padding-left: 2px;
-  line-height: 30px!important;
-  position: relative;
-  font-size: 16px;
-  font-weight: 500;
-  height: 30px;
-  list-style: none;
-  margin-bottom: 1px;
-  margin-top: 1px;
-  background-color: #ffffff;
-}
-
-.data-list li:hover {
-  border-radius: 10px;
-  margin-top: 1px;
-  margin-bottom: 1px;
-  background-color: #70706f;
-  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 28%);
-}
-.data-list li:hover .show-info{
-  display: none;
-}
-.data-list li  .pop-btn {
-  position: absolute;
-  top: 0;
-  right: 0px;
-  height: 30px;
-  /*border-radius: 15px;*/
-  width: 26px;
-  text-align: center;
-  display: none;
-  background-color: #70706f;
-  border: #70706f 1px solid;
-  border-radius: 10px;
-}
 h2 {
   /*border-bottom: #f3e6c8 1px solid;*/
   color: #000000;
@@ -324,10 +207,8 @@ small {
 }
 .come-in{
   animation: one-in 0.6s ease ;
-
 }
 .go-up{
   animation: one-in 1s reverse;
 }
-
 </style>

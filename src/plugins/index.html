@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .chrome-ads-check-style-0 { color: #000; background: #ffc600; }
+        .chrome-ads-check-style-1 { color: #fff; background: #A441FF; }
+        .chrome-ads-check-style-2 { color: #000; background: #FFF532; }
+        .chrome-ads-check-style-3 { color: #fff; background: #3988ff; }
+        .chrome-ads-check-style-4 { color: #000; background: #b4ff00; }
+        .chrome-ads-check-style-5 { color: #fff; background: #5E41FF; }
+        .chrome-ads-check-style-6 { color: #000; background: #75d6e2; }
+        .chrome-ads-check-style-7 { color: #fff; background: #F33F62; }
+        .chrome-ads-check-style-8 { color: #000; background: #ddb397; }
+        .chrome-ads-check-style-9 { color: #fff; background: #DD577A; }
+        .chrome-ads-check-style-10 { color: #fff; background: #D2691E; }
+        .chrome-ads-check-style-11 { color: #000; background: #FFC0CB; }
+        .chrome-ads-check-style-12 { color: #fff; background: #BDB76B; }
+        .chrome-ads-check-style-13 { color: #000; background: #00FFFF; }
+        .chrome-ads-check-style-14 { color: #fff; background: #9ACD32; }
+        .chrome-ads-check-style-15 { color: #000; background: #40E0D0; }
+        .chrome-ads-check-style-16 { color: #fff; background: #00BFFF; }
+        .chrome-ads-check-style-17 { color: #000; background: #E9967A; }
+        .chrome-ads-check-style-18 { color: #fff; background: #FF69B4; }
+        .chrome-ads-check-style-19 { color: #000; background: #FA8072; }
+        span.hello-0{
+            background-color: #f3b57d;
+            color: #4fa7ff;
+        }
+        span.hello-1{
+            background-color: #6c6c6c;
+           color: #ffffff;
+        }
+        span.hello-2{
+            background-color: #ff8080;
+            color: #496491;
+        }
+        h3{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h2>沫沫的时光机</h2>
+<h3>林则徐</h3>
+<h3>黛玉葬花hello</h3>
+<h3>林鹏飞</h3>
+<button id="btn">
+    点击
+</button>
+春江花月夜
+春江潮水连海平，海上明月共潮生①。
+滟滟随波千万里②，何处春江无月明！
+江流宛转绕芳甸③，月照花林皆似霰④。
+空里流霜不觉飞⑤，汀上白沙看不见⑥。
+江天一色无纤尘⑦，皎皎空中孤月轮⑧。
+江畔何人初见月？江月何年初照人？
+人生代代无穷已⑨，江月年年望相似⑩。
+不知江月待何人，但见长江送流水⑪。
+白云一片去悠悠⑫，青枫浦上不胜愁⑬。
+谁家今夜扁舟子⑭？何处相思明月楼⑮？
+可怜楼上月徘徊⑯，应照离人妆镜台⑰。
+玉户帘中卷不去⑱，捣衣砧上拂还来⑲。
+此时相望不相闻⑳，愿逐月华流照君㉑。
+鸿雁长飞光不度，鱼龙潜跃水成文㉒。
+昨夜闲潭梦落花㉓，可怜春半不还家。
+江水流春去欲尽，江潭落月复西斜。
+斜月沉沉藏海雾，碣石潇湘无限路㉔。
+不知乘月几人归㉕，落月摇情满江树㉖。 [1]
+<script src="jquery.js">
+</script>
+<script src="jquery.highlight.js">
+</script>
+<script>
+    var hl = (taget)=>{
+        // let words = ['滟滟','无月明','江流宛','捣衣','扁舟子','年年望','玉户'];
+        let words = ['沫沫','林鹏飞','时光机','黛玉','hello','碣石','春半','昨夜','乘月','沉沉','光不度','鸿雁','斜月','不觉','汀上白沙'];
+        let settings = { className: 'chrome-ads-check-style', element: 'span', caseSensitive: false, wordsOnly: false };
+        $(taget).highlight(words,settings);
+    }
+    var hl2 = (taget)=>{
+        // let words = ['滟滟','无月明','江流宛','捣衣','扁舟子','年年望','玉户'];
+        let words = ['沫沫','林鹏飞','时光机','黛玉','hello','碣石','春半','昨夜','乘月','沉沉','光不度','鸿雁','斜月','不觉','汀上白沙'];
+        let settings = { className: 'chrome-ads-check-style-1', element: 'span', caseSensitive: false, wordsOnly: false };
+        words.forEach(function (item,index) {
+            settings.className = 'chrome-ads-check-style-'+index%20;
+            $(taget).highlight(item,settings);
+        })
+    }
+    $(()=>{
+        $("#btn").click(()=>{
+            var start = new Date().getTime()
+            $(document.body).append(`<h2>沫沫</h2><span>helloworld</span>`)
+         })
+        // Firefox和Chrome早期版本中带有前缀
+        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+        // 选择目标节点
+        var target = document.querySelector('body')
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if(mutation.type=='childList'){
+                    console.log("新增了节点")
+                    hl($(mutation.addedNodes))
+                }
+                if(mutation.type=='characterData'){
+                    console.log("文字变化了")
+                    hl(mutation.target)
+                }
+            });
+        });
+// 配置观察选项:
+        var config = {
+            attributes: true,
+            childList: true,
+            characterData: true
+        }
+// 传入目标节点和观察选项
+        observer.observe(target, config);
+        hl($(document.body))
+    })
+</script>
+</body>
+</html>

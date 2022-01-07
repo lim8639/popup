@@ -4,81 +4,76 @@
        name="animate__animated animate__bounce"
        enter-active-class="animate__bounceInRight"
        leave-active-class="animate__backOutRight"
-
    appear>
-
-
    <div class="body">
-     <div style="margin-bottom: 5px;">
-       <span style="color: #666;">Deadline match the name</span>
-       <span class=""><input style="width: 45px;margin-right: 4px; float:right;border: #5D576B 1px dashed;color: #666;"
-                             type="text" name="User" @blur="savaSetting" v-model="Setting.UserName">
+     <div class="autokill">
+       <span>Auto remove some page</span>
+       <span class="title">Enable<input type="checkbox" @change="changeConfigAutoHighLight" :checked="Config.AutoHighLight">
         </span>
      </div>
      <div class="autokill">
-       <span>Auto remove some page </span>
-
-       <span class="title">Enable<input type="checkbox" @click="changeAutoKillPage"  :checked="Setting.AutoKillPage">
-        </span>
-     </div>
-     <div class="autokill">
-       <span>Auto hidden the header </span>
-       <span class="title">Enable<input type="checkbox"  @click="changeAutoHiddenHeader"  :checked="Setting.AutoHiddenHeader">
-        </span>
-     </div>
-     <div id="app">
+       <span>the highlight keywords</span>
+       <span>
+         <textarea @blur="changeConfigKeywords" name="keywords" v-model="keywords" ></textarea>
+       </span>
      </div>
    </div>
    </transition>
    <div class="setting">
      <router-link to="/"><h3>Click to back!</h3></router-link>
    </div>
-
  </div>
 </template>
-
 <script>
 export default {
   mounted() {
-    const oScript = document.createElement('script');
-    oScript.type = 'text/javascript';
-    oScript.src = 'js/vendors.js';
-    document.body.appendChild(oScript);
-    chrome.storage.sync.get("Setting",(item)=>{
-      this.$data.Setting = item.Setting;
-      console.log("读取数据成功")
+    chrome.storage.sync.get("Config", (item) => {
+      this.$data.Config = item.Config;
+      this.$data.keywords =  item.Config.keywords.join(' ');
     })
+
   },
   name: "setting",
   methods:{
-    changeAutoKillPage(){
-       this.$data.Setting.AutoKillPage = !this.$data.Setting.AutoKillPage;
-       this.savaSetting();
+    saveConfig(){
+      chrome.storage.sync.set({"Config": this.$data.Config})
     },
-    changeAutoHiddenHeader(){
-      this.$data.Setting.AutoHiddenHeader = !this.$data.Setting.AutoHiddenHeader;
-      this.savaSetting();
+    changeConfigAutoHighLight(){
+      this.$data.Config.AutoHighLight = !this.$data.Config.AutoHighLight;
+      this.saveConfig()
     },
-
-    savaSetting(){
-      chrome.storage.sync.set({"Setting":this.$data.Setting})
-    },
+    changeConfigKeywords(){
+       this.$data.Config.keywords = this.keywords.split(" ")
+        this.saveConfig()
+    }
   },
   data(){
       return {
-        Setting:{}
+        Config:{
+        },
+        keywords:''
       }
   },
-
 }
 </script>
 <style scoped>
-.body {
-  height: 310px!important;
-  width: 275px;
-  overflow-y: hidden;
-}
 
+textarea{
+  margin-top: 5px;
+  width: 294px;
+  height: 100px;
+  /* border: 1px solid; */
+  border: 1px solid #dedede;
+  background-color: #fdfdfd;
+  color: #8b8b8b;
+  font-family: 'youyuan',serif;
+  font-size: 14px;
+  resize: none;
+  outline-color: #a7a7a7;
+}
+textarea:focus{
+
+}
 h2 {
   /*border-bottom: #f3e6c8 1px solid;*/
   color: #5D576B;

@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 // 可以从其他文件 import 进来
 import deadline from "@/popup/components/deadline";
 import setting from  "@/popup/components/setting";
-import declare from "@/popup/components/declare";
+
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
 // 通过 Vue.extend() 创建的组件构造器，
@@ -22,8 +22,6 @@ import declare from "@/popup/components/declare";
 const routes = [
     { path: '/', component: deadline },
     { path: '/bar', component: setting },
-    { path: '/declare', component: declare }
-
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
